@@ -1,0 +1,72 @@
+buildscript {
+    ext.kotlin_version = '1.2.10'
+
+    repositories {
+        maven {
+            url "http://172.18.2.30:8081/nexus/content/repositories/thirdparty"
+        }
+        maven {
+            url "http://172.18.2.30:8081/nexus/content/groups/public/"
+        }
+        maven {
+            url "http://172.18.2.30:8081/nexus/content/repositories/releases"
+        }
+        maven {
+            url "http://172.18.2.30:8081/nexus/content/repositories/snapshots"
+        }
+        mavenLocal()
+        mavenCentral()
+    }
+    //gradle 自身编译所需资源
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
+    }
+}
+
+group 'com.springdemo'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    maven {
+        url "http://172.18.2.30:8081/nexus/content/repositories/thirdparty"
+    }
+    maven {
+        url "http://172.18.2.30:8081/nexus/content/groups/public/"
+    }
+    maven {
+        url "http://172.18.2.30:8081/nexus/content/repositories/releases"
+    }
+    maven {
+        url "http://172.18.2.30:8081/nexus/content/repositories/snapshots"
+    }
+    mavenLocal()
+    mavenCentral()
+}
+//项目所需的资源
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '1.3.1'
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.3.0'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.44'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.9.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '5.0.2.RELEASE'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
