@@ -24,7 +24,7 @@ class AuthInterceptor : HandlerInterceptor{
         val authRequired = method.getAnnotation(AuthRequire::class.java) ?: return true
         System.out.println(authRequired)
         val token: String = request?.getHeader("token") ?: throw Exception("no auth")
-        if (authenticationService.checkToken(token)) {
+        if (!authenticationService.checkToken(token)) {
             response?.sendError(401)
             return false
         }
